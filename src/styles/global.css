@@ -1,0 +1,372 @@
+
+/* Palette: https://coolors.co/palette/f9dbbd-ffa5ab-da627d-a53860-450920 */
+
+:root {
+  /* --- Core palette --- */
+  --cream:      #f9dbbd; /* lightest, warm paper tone */
+  --pink:       #ffa5ab; /* soft accent / hover */
+  --rose:       #da627d; /* primary accent, links */
+  --raspberry:  #a53860; /* headings, borders, buttons */
+  --wine:       #450920; /* body text, darkest ink */
+
+  /* --- Semantic tokens --- */
+  --bg:           var(--cream);
+  --bg-alt:       #fdeee0;      /* slightly lighter panel tone, derived from cream */
+  --text:         var(--wine);
+  --text-muted:   #7a2f45;      /* wine lightened for secondary text */
+  --link:         var(--raspberry);
+  --link-hover:   var(--rose);
+  --accent:       var(--rose);
+  --accent-strong:var(--raspberry);
+  --border:       var(--raspberry);
+  --selection-bg: var(--pink);
+  --selection-fg: var(--wine);
+  --code-bg:      #f2c9c9;      /* pink/cream blend for code blocks */
+
+  /* --- Type & spacing --- */
+  --font-body: "Georgia", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-head: "Georgia", "Palatino Linotype", serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+  --max-width: 42rem;
+  --radius: 4px;
+}
+
+/* --- Dark mode: invert the ramp, keep the same hues --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:           #200109;
+    --bg-alt:       #2e0a15;
+    --text:         var(--cream);
+    --text-muted:   var(--pink);
+    --link:         var(--pink);
+    --link-hover:   var(--rose);
+    --accent:       var(--rose);
+    --accent-strong:var(--pink);
+    --border:       var(--rose);
+    --selection-bg: var(--raspberry);
+    --selection-fg: var(--cream);
+    --code-bg:      #3a0f1d;
+  }
+}
+
+/* ==========================================================================
+   Reset-ish basics
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+body {
+  margin: 0;
+  padding: 2.5rem 1.25rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  text-align: center;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/* ==========================================================================
+   Page container — the classic "personal site" narrow column
+   ========================================================================== */
+
+.site,
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Header / site identity
+   ========================================================================== */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-bottom: 3px double var(--border);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+ 
+.site-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--accent-strong);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+ 
+.site-tagline {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+ 
+nav.site-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+ 
+nav.site-nav a {
+  margin: 0 0.5rem;
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  color: var(--accent-strong);
+  line-height: 1.25;
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+}
+
+h1 { font-size: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+
+p { margin: 0 0 1.1rem; }
+
+small, .muted { color: var(--text-muted); }
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: var(--pink);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+a:hover, a:focus-visible {
+  color: var(--link-hover);
+  text-decoration-color: var(--link-hover);
+}
+
+a:focus-visible {
+  outline: 2px dashed var(--accent-strong);
+  outline-offset: 2px;
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.6rem 1rem;
+  border-left: 4px solid var(--accent);
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted var(--border);
+  margin: 2.5rem 0;
+}
+
+mark {
+  background: var(--pink);
+  color: var(--wine);
+  padding: 0 0.2em;
+}
+
+/* ==========================================================================
+   Code
+   ========================================================================== */
+
+code, kbd, pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+code {
+  background: var(--code-bg);
+  color: var(--wine);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius);
+}
+
+pre {
+  background: var(--code-bg);
+  padding: 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+pre code { background: none; padding: 0; }
+
+/* ==========================================================================
+   Lists
+   ========================================================================== */
+
+ul, ol { padding-left: 1.4rem; }
+li { margin-bottom: 0.4rem; }
+
+ul.plain, .tag-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-list li,
+.tag {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  color: var(--accent-strong);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+}
+
+/* Cards */
+
+.card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.card h3 { margin-top: 0; }
+
+.card .card-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Buttons */
+
+.btn {
+  display: inline-block;
+  background: var(--accent-strong);
+  color: var(--cream);
+  border: 2px solid var(--wine);
+  border-radius: var(--radius);
+  padding: 0.5rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--wine);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn:hover {
+  background: var(--rose);
+  color: var(--wine);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--wine);
+}
+
+.btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 var(--wine);
+}
+
+/* Images */
+
+img {
+  max-width: 100%;
+  border-radius: var(--radius);
+}
+
+img.framed {
+  border: 4px solid var(--cream);
+  outline: 2px solid var(--border);
+  box-shadow: 3px 3px 0 var(--raspberry);
+}
+
+figcaption {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+/* Tables */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+}
+
+th {
+  background: var(--accent-strong);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+tr:nth-child(even) td { background: var(--bg-alt); }
+
+/* Footer / webring / badges */
+
+footer.site-footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 3px double var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.badges img { image-rendering: pixelated; }
+
+/* Scrollbar (WebKit) */
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-alt); }
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 999px;
+  border: 2px solid var(--bg-alt);
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 480px) {
+  body { padding: 1.5rem 1rem; font-size: 1rem; }
+  .site-header { flex-direction: column; align-items: flex-start; }
+  nav.site-nav a { margin-left: 0; margin-right: 0.9rem; }
+}
